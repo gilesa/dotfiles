@@ -4,8 +4,8 @@ alias ll='ls -hAlFG'
 alias sublime='open -a "Sublime Text"'
 alias dcr='docker-compose down && docker-compose up -d'
 
-
-### Determine size of a file or total size of a directory
+### Functions
+# Determine size of a file or total size of a directory
 function fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
 		local arg=-sbh;
@@ -19,8 +19,22 @@ function fs() {
 	fi;
 }
 
+# Create and enter a new directory
+function mkcd() {
+	mkdir "$1";
+	cd "$1";
+}
+
+# Start up a local python server
+function server() {
+	local port="${1:-8000}";
+	sleep 1 && open "http://localhost:${port}/" &
+	python3 -m http.server "$port";
+}
+
 
 ### Increase history
+HISTSIZE=500000
 HISTFILESIZE=100000
 
 
