@@ -1,10 +1,17 @@
-### Aliases
+#####################
+###### Aliases ######
+#####################
+
 alias ls='ls -AFG'
 alias ll='ls -hAlFG'
 alias sublime='open -a "Sublime Text"'
 alias dcr='docker-compose down && docker-compose up -d'
 
-### Functions
+
+#######################
+###### Functions ######
+#######################
+
 # Determine size of a file or total size of a directory
 function fs() {
 	if du -b /dev/null > /dev/null 2>&1; then
@@ -33,12 +40,23 @@ function server() {
 }
 
 
-### Increase history
+#####################
+###### History ######
+#####################
+
+# Increase size
 HISTSIZE=500000
 HISTFILESIZE=100000
 
+# Enable history expansion with space
+# E.g. typing !!<space> will replace the !! with your last command
+bind Space:magic-space
 
-### Git
+
+#################
+###### Git ######
+#################
+
 # requires bash completion script to be installed via Homebrew
 # $ brew install bash-completion
 # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
@@ -46,8 +64,7 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
 fi
 
-
-### Determine git branch/status for use in prompt
+# Determine git branch/status for use in prompt
 prompt_git() {
 	local s='';
 	local branchName='';
@@ -95,7 +112,10 @@ prompt_git() {
 }
 
 
-### Prompt
+####################
+###### Prompt ######
+####################
+
 if tput setaf 1 &> /dev/null; then
 	tput sgr0; # reset colors
 	bold=$(tput bold);
@@ -156,6 +176,5 @@ export PS1;
 PS2="\[${yellow}\]→ \[${reset}\]";
 export PS2;
 
-
-### Show current directory in tab
+# Show current directory in tab
 export PROMPT_COMMAND='echo -ne "\033]0;${PWD##*/}\007"'
