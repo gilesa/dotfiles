@@ -2,6 +2,26 @@
 alias ls='ls -AFG'
 alias ll='ls -hAlFG'
 alias sublime='open -a "Sublime Text"'
+alias dcr='docker-compose down && docker-compose up -d'
+
+
+### Determine size of a file or total size of a directory
+function fs() {
+	if du -b /dev/null > /dev/null 2>&1; then
+		local arg=-sbh;
+	else
+		local arg=-sh;
+	fi
+	if [[ -n "$@" ]]; then
+		du $arg -- "$@";
+	else
+		du $arg .[^.]* ./*;
+	fi;
+}
+
+
+### Increase history
+HISTFILESIZE=100000
 
 
 ### Git
@@ -12,7 +32,8 @@ if [ -f $(brew --prefix)/etc/bash_completion ]; then
 source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
 fi
 
-# Stolen from https://github.com/mathiasbynens/dotfiles
+
+### Determine git branch/status for use in prompt
 prompt_git() {
 	local s='';
 	local branchName='';
@@ -61,7 +82,6 @@ prompt_git() {
 
 
 ### Prompt
-# Based heavily on https://github.com/mathiasbynens/dotfiles
 if tput setaf 1 &> /dev/null; then
 	tput sgr0; # reset colors
 	bold=$(tput bold);
