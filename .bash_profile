@@ -4,9 +4,20 @@
 
 alias ls='ls -AFG'
 alias ll='ls -hAlFG'
+
 alias sublime='open -a "Sublime Text"'
+
 alias dcr='docker-compose down && docker-compose up -d'
 
+alias gpull='git pull origin'
+alias gpush='git push origin'
+alias gc='git checkout'
+alias gs='git status'
+alias gd='git diff'
+
+# $ brew install cmatrix
+# https://github.com/abishekvashok/cmatrix
+alias matrix='cmatrix'
 
 #######################
 ###### Functions ######
@@ -61,7 +72,12 @@ bind Space:magic-space
 # $ brew install bash-completion
 # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
-source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
+	source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
+	
+	# Add git completion to aliases
+	 __git_complete gc _git_checkout
+	 __git_complete gpull __git_pull
+	 __git_complete gpush _git_push
 fi
 
 # Determine git branch/status for use in prompt
