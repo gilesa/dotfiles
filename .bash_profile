@@ -1,3 +1,5 @@
+export PATH=$PATH:/Users/giles/Library/Python/3.9/bin
+
 #####################
 ###### Aliases ######
 #####################
@@ -5,19 +7,12 @@
 alias ls='ls -AFG'
 alias ll='ls -hAlFG'
 
-alias sublime='open -a "Sublime Text"'
-
-alias dcr='docker-compose down && docker-compose up -d'
-
 alias gpull='git pull origin'
 alias gpush='git push origin'
 alias gc='git checkout'
 alias gs='git status'
 alias gd='git diff'
-
-# $ brew install cmatrix
-# https://github.com/abishekvashok/cmatrix
-alias matrix='cmatrix'
+alias gb='git branch'
 
 #######################
 ###### Functions ######
@@ -68,17 +63,14 @@ bind Space:magic-space
 ###### Git ######
 #################
 
-# requires bash completion script to be installed via Homebrew
-# $ brew install bash-completion
+# Requires bash completion script to be installed!
 # https://github.com/git/git/blob/master/contrib/completion/git-completion.bash
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-	source $(brew --prefix)/etc/bash_completion.d/git-completion.bash
-	
-	# Add git completion to aliases
-	 __git_complete gc _git_checkout
-	 __git_complete gpull __git_pull
-	 __git_complete gpush _git_push
-fi
+source ~/.git-completion.bash
+
+# Add git completion to aliases
+__git_complete gc _git_checkout
+__git_complete gpull __git_pull
+__git_complete gpush _git_push
 
 # Determine git branch/status for use in prompt
 prompt_git() {
@@ -179,14 +171,14 @@ fi;
 # Set the terminal title and prompt.
 PS1="\[\033]0;\W\007\]"; # working directory base name
 PS1+="\[${bold}\]";
-PS1+="\[${black}\][\t] "; # time
+PS1+="\[${black}\][\t]"; # time
 PS1+="\[${userStyle}\]\u"; # username
-PS1+="\[${white}\] @ ";
+PS1+="\[${white}\]@";
 PS1+="\[${hostStyle}\]\h"; # host
-PS1+="\[${white}\] : ";
+PS1+="\[${white}\]:";
 PS1+="\[${green}\]\w"; # working directory full path
-PS1+="\$(prompt_git \"\[${white}\] ↣ \[${violet}\]\" \"\[${blue}\]\")"; # Git repository details
-PS1+="\[${white}\] ♃ \[${reset}\]"; # `♃` (and reset color)
+PS1+="\$(prompt_git \"\[${white}\]↣\[${violet}\]\" \"\[${blue}\]\")"; # Git repository details
+PS1+="\[${white}\]♃ \[${reset}\]"; # `♃` (and reset color)
 export PS1;
 
 PS2="\[${yellow}\]→ \[${reset}\]";
